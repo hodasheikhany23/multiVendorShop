@@ -1,0 +1,2 @@
+<livewire:category-wire-update />
+

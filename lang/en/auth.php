@@ -29,5 +29,9 @@ return [
     'email'=>'Email',
     'send'=>'Send',
     'reset'=>'Reset',
+    'phone'=>'phone',
+    'role'=>'role',
+
+
 
 ];

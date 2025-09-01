@@ -1,0 +1,2 @@
+<livewire:menu-wire-update />
+

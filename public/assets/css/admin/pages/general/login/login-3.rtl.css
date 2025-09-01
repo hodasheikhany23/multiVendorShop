@@ -7686,7 +7686,7 @@ a.text-dark:hover, a.text-dark:focus {
         border-color: #dee2e6; } }
 
 body {
-    font-family: "Lato", Arial, sans-serif;
+    font-family: IRANSansX;
     font-size: 16px;
     line-height: 1.8;
     font-weight: normal;
@@ -7715,7 +7715,7 @@ h1, h2, h3, h4, h5,
     background:   #d3522a !important; }
 
 .ftco-section {
-    padding: 7em 0; }
+    padding: 4em 0; }
 
 .ftco-no-pt {
     padding-top: 0; }
@@ -7868,7 +7868,7 @@ h1, h2, h3, h4, h5,
 .checkbox-primary {
     color:   #d3522a; }
 .checkbox-primary input:checked ~ .checkmark:after {
-    color:   #d3522a; }
+    color:   #d3522a !important; }
 
 .btn {
     cursor: pointer;
@@ -7899,6 +7899,10 @@ h1, h2, h3, h4, h5,
     background-color: #d3522a !important;
     border-color: #d3522a !important;
 }
+
 a{
     text-decoration: none !important;
+}
+button{
+    font-family: IRANSansX;
 }

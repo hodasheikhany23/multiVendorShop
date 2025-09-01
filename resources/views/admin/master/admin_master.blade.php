@@ -5,7 +5,7 @@
     <title> Admin | Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-
+    @livewireStyles
 
     <!--begin::Page Vendors Styles(used by this page) -->
     <link href="{{asset('assets/vendors/custom/fullcalendar/fullcalendar.bundle.css')}}" rel="stylesheet" type="text/css" />
@@ -20,7 +20,7 @@
     <!--end:: Global Mandatory Vendors -->
 
     <!--begin:: Global Optional Vendors -->
-    <link href="{{asset('assets/vendors/general/tether/dist/css/tether.css" rel="stylesheet')}}" type="text/css" />
+    <link href="{{asset('assets/vendors/general/tether/dist/css/tether.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/vendors/general/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/vendors/general/bootstrap-datetime-picker/css/bootstrap-datetimepicker.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/vendors/general/bootstrap-timepicker/css/bootstrap-timepicker.css')}}" rel="stylesheet" type="text/css" />
@@ -60,7 +60,7 @@
     <link href="{{asset('assets/css/admin/skins/aside/light.rtl.css')}}" rel="stylesheet" type="text/css" />
 
     <!--end::Layout Skins -->
-    <link rel="shortcut icon" href="{{asset('assets/media/logos/favicon.ico')}}" />
+    <link rel="shortcut icon" href="{{asset('assets/media/logos/logo-1.ico')}}" />
 </head>
 
 <body dir="rtl" class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--fixed kt-subheader--enabled kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading">
@@ -147,8 +147,8 @@
                             <span class="kt-menu__link-text">منو ها</span><i class="kt-menu__ver-arrow la la-angle-left"></i></a>
                             <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                                 <ul class="kt-menu__subnav">
-                                    <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="{{route('menu.index')}}" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">لیست منو ها</span></a></li>
-                                    <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="{{route('menu.create')}}" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">  ایجاد منو</span></a></li>
+                                    <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="{{route('admin.menu.index')}}" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">لیست منو ها</span></a></li>
+                                    <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="{{route('admin.menu.create')}}" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">  ایجاد منو</span></a></li>
                                 </ul>
                             </div>
                         </li>
@@ -1423,7 +1423,7 @@
 
 <!-- end::Scrolltop -->
 
-
+@livewireScripts
 
 
 <!-- begin::Global Config(global config for global JS sciprts) -->

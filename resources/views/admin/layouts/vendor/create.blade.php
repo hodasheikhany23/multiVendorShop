@@ -1,0 +1,1 @@
+<livewire:vendor-wire-create />

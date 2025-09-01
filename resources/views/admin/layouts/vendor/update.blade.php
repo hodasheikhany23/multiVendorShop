@@ -1,0 +1,2 @@
+<livewire:vendor-wire-update />
+
