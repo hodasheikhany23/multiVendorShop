@@ -37,10 +37,10 @@ class Category extends Model
     {
         if ($this->parent) {
             if(app()->getLocale() == 'fa'){
-                return $this->parent->full_name . '_' . $this->name;
+                return $this->parent->full_name . '/' . $this->name;
             }
             else{
-                return $this->parent->full_name . '_' . $this->name_en;
+                return $this->parent->full_name . '/' . $this->name_en;
             }
         }
         if (app()->getLocale() == 'fa') {
@@ -51,8 +51,21 @@ class Category extends Model
         }
     }
 
+    public function allChildrenIds()
+    {
+        $ids = collect([$this->id]);
+
+        foreach ($this->children as $child) {
+            $ids = $ids->merge($child->allChildrenIds());
+        }
+
+        return $ids;
+    }
     public function vendors(){
         return $this->belongsToMany(Vendor::class);
+    }
+    public function products(){
+        return $this->belongsToMany(Product::class);
     }
 
 }

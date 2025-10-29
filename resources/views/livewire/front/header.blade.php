@@ -8,7 +8,7 @@
                     <!-- Header Top phone Start -->
                     <div class="col header-top-left">
                         <div class="header-top-call">
-                            <i class="bi bi-telephone mx-2"></i> تلفن:
+                            <i class="bi bi-telephone mx-2"></i> {{__('validation.auth.phone')}}:
                             <a href="tel:+48735527287"> 091338107207</a>
                         </div>
                     </div>
@@ -16,7 +16,7 @@
                     <!-- Header Top call Start -->
                     <div class="col header-top-center">
                         <div class="header-top-call">
-                            ثبت نام به عنوان فروشنده: 09361268525
+                            {{__('validation.attributes.Register_as_seller')}}: 09361268525
                         </div>
                     </div>
                     <!-- Header Top call End -->
@@ -25,15 +25,20 @@
                         <div class="header-top-right-inner d-flex justify-content-end">
                             <!-- Language Start -->
                             <div class="header-top-lan-curr header-top-lan dropdown">
-                                <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown">فارسی <i
-                                        class="fa fa-angle-down me-2 mt-1" style="font-size: 12px;" aria-hidden="true"></i></button>
+                                <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown">
+                                    @if(\Illuminate\Support\Facades\App::getLocale()=='fa')
+                                        فارسی
+                                    @else
+                                        English
+                                    @endif
+                                    <i class="fa fa-angle-down me-2 mt-1" style="font-size: 12px;" aria-hidden="true"></i></button>
                                 <ul class="dropdown-menu">
-                                    <li class="active"><a class="dropdown-item" href="#">English</a></li>
-                                    <li><a class="dropdown-item" href="#">فارسی</a></li>
+                                    <li class="active"><a wire:click="switchLanguage('en')" class="dropdown-item" href="#">English</a></li>
+                                    <li><a wire:click="switchLanguage('fa')" class="dropdown-item" href="#">فارسی</a></li>
                                 </ul>
                             </div>
                             <!-- Language End -->
-                                                    </div>
+                        </div>
                     </div>
                     <!-- Header Top Language Currency -->
                     <!-- Header Top responsive Action -->
@@ -92,8 +97,8 @@
                         <div class="align-self-center">
                             <div class="header-search">
                                 <form class="ec-btn-group-form" action="#">
-                                    <input class="form-control" placeholder="جستو و جو کنید..." type="text">
-                                    <button class="submit" type="submit"><i class="bi bi-search"></i></button>
+                                    <input class="form-control" placeholder="{{__('validation.attributes.search')}}" type="text">
+                                    <button class="submit" type="submit"><i class="bi bi-search" style="color:var(--color-main)"></i></button>
                                 </form>
                             </div>
                         </div>
@@ -103,28 +108,37 @@
                         <div class="align-self-center">
                             <div class="ec-header-bottons">
                                 <!-- Header User Start -->
-                                <div class="ec-header-user dropdown">
-                                    <button class="dropdown-toggle" data-bs-toggle="dropdown"><i class="bi bi-person"></i><span class="ec-btn-title">حساب کاربری</span></button>
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a class="dropdown-item" href="register.html">ثبت نام</a></li>
-                                        <li><a class="dropdown-item" href="checkout.html">Checkout</a></li>
-                                        <li><a class="dropdown-item" href="login.html">Login</a></li>
-                                    </ul>
+                                <div class="ec-header-btn ec-header-wishlist px-3 bg-primary1 text-white">
+                                    @if(\Illuminate\Support\Facades\Auth::check())
+                                        <button class="dropdown-toggle" data-bs-toggle="dropdown">
+                                        <i class="bi bi-person text-white px-2"></i><span class="ec-btn-title">{{__('validation.attributes.profile')}}</span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li><a class="dropdown-item" href="register.html">{{__('validation.attributes.profile')}} </a></li>
+                                            <li><a class="dropdown-item" href="checkout.html">{{__('validation.attributes.favorites')}}</a></li>
+                                            <li>
+                                                <form  method="post" action="{{route('logout')}}">
+                                                    @csrf
+                                                    <button type="submit" class="dropdown-item">{{__('validation.auth.logout')}}</button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    @else
+                                        <button wire:navigate href="{{route('login')}}">
+                                        <i class="bi bi-login text-white px-2"></i><span class="ec-btn-title">{{__('validation.attributes.login/signup')}} </span>
+                                        </button>
+                                    @endif
+
                                 </div>
                                 <!-- Header User End -->
-                                <!-- Header wishlist Start -->
-                                <a href="#" class="ec-header-btn ec-header-wishlist px-3">
-                                    <div class="header-icon"><i class="bi bi-heart"></i></div><span
-                                        class="ec-header-count ec-cart-wishlist">0</span>
-                                    <span class="ec-btn-title">علاقه مندی ها</span>
-                                </a>
-                                <!-- Header wishlist End -->
                                 <!-- Header Cart Start -->
+                                @if(\Illuminate\Support\Facades\Auth::check())
                                 <a href="#ec-side-cart" class="ec-header-btn ec-side-toggle">
                                     <div class="header-icon"><i class="bi bi-bag"></i></div>
                                     <span class="ec-header-count ec-cart-count">3</span><span class="ec-btn-title">
-                                        سبد خرید</span>
+                                        {{__('validation.attributes.cart')}}</span>
                                 </a>
+                                @endif
                                 <!-- Header Cart End -->
                             </div>
                         </div>
@@ -152,7 +166,7 @@
                     <div class="col">
                         <div class="header-search">
                             <form class="ec-btn-group-form" action="#">
-                                <input class="form-control" placeholder="جست و جو کنید..." type="text">
+                                <input class="form-control" placeholder="{{__('validation.attributes.search')}}" type="text">
                                 <button class="submit" type="submit"><i class="bi bi-search"></i></button>
                             </form>
                         </div>
@@ -170,83 +184,13 @@
                         <div class="ec-main-menu d-flex justify-content-between">
                             <a href="#ec-mobile-sidebar" class="ec-header-btn ec-sidebar-toggle d-flex w-50">
                                 <i class="bi bi-grid ms-2"></i>
-                                دسته بندی ها
+                                {{__('validation.attributes.categories')}}
                             </a>
                             <ul>
-                                <li><a href="index.html">Home</a></li>
-                                <li class="dropdown position-static"><a href="javascript:void(0)">دسته بندی ها</a>
-                                    <ul class="mega-menu d-block">
-                                        <li class="d-flex">
-                                            <ul class="d-block">
-                                                <li class="menu_title"><a href="javascript:void(0)">Classic
-                                                        Variation</a></li>
-                                                <li><a href="shop-left-sidebar-col-3.html">Left sidebar 3 column</a>
-                                                </li>
-                                                <li><a href="shop-left-sidebar-col-4.html">Left sidebar 4 column</a>
-                                                </li>
-                                                <li><a href="shop-right-sidebar-col-3.html">Right sidebar 3 column</a>
-                                                </li>
-                                                <li><a href="shop-right-sidebar-col-4.html">Right sidebar 4 column</a>
-                                                </li>
-                                                <li><a href="shop-full-width.html">Full width 4 column</a></li>
-                                            </ul>
-                                            <ul class="d-block">
-                                                <li class="menu_title"><a href="javascript:void(0)">Classic
-                                                        Variation</a></li>
-                                                <li><a href="shop-banner-left-sidebar-col-3.html">Banner left sidebar 3
-                                                        column</a></li>
-                                                <li><a href="shop-banner-left-sidebar-col-4.html">Banner left sidebar 4
-                                                        column</a></li>
-                                                <li><a href="shop-banner-right-sidebar-col-3.html">Banner right sidebar
-                                                        3 column</a></li>
-                                                <li><a href="shop-banner-right-sidebar-col-4.html">Banner right sidebar
-                                                        4 column</a></li>
-                                                <li><a href="shop-banner-full-width.html">Banner Full width 4 column</a>
-                                                </li>
-                                            </ul>
-                                            <ul class="d-block">
-                                                <li class="menu_title"><a href="javascript:void(0)">Columns
-                                                        Variation</a></li>
-                                                <li><a href="shop-full-width-col-3.html">3 Columns full width</a></li>
-                                                <li><a href="shop-full-width-col-4.html">4 Columns full width</a></li>
-                                                <li><a href="shop-full-width-col-5.html">5 Columns full width</a></li>
-                                                <li><a href="shop-full-width-col-6.html">6 Columns full width</a></li>
-                                                <li><a href="shop-banner-full-width-col-3.html">Banner 3 Columns</a>
-                                                </li>
-                                            </ul>
-                                            <ul class="d-block">
-                                                <li class="menu_title"><a href="javascript:void(0)">List Variation</a>
-                                                </li>
-                                                <li><a href="shop-list-left-sidebar.html">Shop left sidebar</a></li>
-                                                <li><a href="shop-list-right-sidebar.html">Shop right sidebar</a></li>
-                                                <li><a href="shop-list-banner-left-sidebar.html">Banner left sidebar</a>
-                                                </li>
-                                                <li><a href="shop-list-banner-right-sidebar.html">Banner right
-                                                        sidebar</a></li>
-                                                <li><a href="shop-list-full-col-2.html">Full width 2 columns</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <ul class="ec-main-banner w-100">
-                                                <li><a class="p-0" href="shop-left-sidebar-col-3.html"><img
-                                                            class="img-responsive" src="assets/images/menu-banner/1.jpg"
-                                                            alt=""></a></li>
-                                                <li><a class="p-0" href="shop-left-sidebar-col-4.html"><img
-                                                            class="img-responsive" src="assets/images/menu-banner/2.jpg"
-                                                            alt=""></a></li>
-                                                <li><a class="p-0" href="shop-right-sidebar-col-3.html"><img
-                                                            class="img-responsive" src="assets/images/menu-banner/3.jpg"
-                                                            alt=""></a></li>
-                                                <li><a class="p-0" href="shop-right-sidebar-col-4.html"><img
-                                                            class="img-responsive" src="assets/images/menu-banner/4.jpg"
-                                                            alt=""></a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown"><a href="javascript:void(0)">محصولات</a>
+                                <li><a href="index.html">{{__('validation.attributes.home')}}</a></li>
+                                <li class="dropdown"><a>{{__('validation.attributes.products')}}</a>
                                     <ul class="sub-menu">
-                                        <li class="dropdown position-static"><a href="javascript:void(0)">Product page
+                                        <li class="dropdown position-static"><a>Product page
                                                 <i class="ecicon eci-angle-right"></i></a>
                                             <ul class="sub-menu sub-menu-child">
                                                 <li><a href="product-left-sidebar.html">Product left sidebar</a></li>
@@ -285,7 +229,7 @@
                                         <li><a href="product-gallery-full-width.html">Gallery full width</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown"><a href="javascript:void(0)">صفحات</a>
+                                <li class="dropdown"><a href="javascript:void(0)">{{__('validation.attributes.blogs')}}</a>
                                     <ul class="sub-menu">
                                         <li><a href="about-us.html">About Us</a></li>
                                         <li><a href="contact-us.html">Contact Us</a></li>
@@ -300,116 +244,95 @@
                                         <li><a href="privacy-policy.html">Privacy Policy</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown"><span class="main-label-note-new" data-toggle="tooltip"
-                                                           title="NEW"></span><a href="javascript:void(0)">Others</a>
-                                    <ul class="sub-menu">
-                                        <li class="dropdown position-static"><a href="javascript:void(0)">Mail
-                                                Confirmation
-                                                <i class="ecicon eci-angle-right"></i></a>
-                                            <ul class="sub-menu sub-menu-child">
-                                                <li><a href="email-template-confirm-1.html">Mail Confirmation 1</a></li>
-                                                <li><a href="email-template-confirm-2.html">Mail Confirmation 2</a></li>
-                                                <li><a href="email-template-confirm-3.html">Mail Confirmation 3</a></li>
-                                                <li><a href="email-template-confirm-4.html">Mail Confirmation 4</a></li>
-                                                <li><a href="email-template-confirm-5.html">Mail Confirmation 5</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown position-static"><a href="javascript:void(0)">Mail Reset
-                                                password
-                                                <i class="ecicon eci-angle-right"></i></a>
-                                            <ul class="sub-menu sub-menu-child">
-                                                <li><a href="email-template-forgot-password-1.html">Reset password 1</a>
-                                                </li>
-                                                <li><a href="email-template-forgot-password-2.html">Reset password 2</a>
-                                                </li>
-                                                <li><a href="email-template-forgot-password-3.html">Reset password 3</a>
-                                                </li>
-                                                <li><a href="email-template-forgot-password-4.html">Reset password 4</a>
-                                                </li>
-                                                <li><a href="email-template-forgot-password-5.html">Reset password 5</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown position-static"><a href="javascript:void(0)">Mail
-                                                Promotional
-                                                <i class="ecicon eci-angle-right"></i></a>
-                                            <ul class="sub-menu sub-menu-child">
-                                                <li><a href="email-template-offers-1.html">Offer mail 1</a></li>
-                                                <li><a href="email-template-offers-2.html">Offer mail 2</a></li>
-                                                <li><a href="email-template-offers-3.html">Offer mail 3</a></li>
-                                                <li><a href="email-template-offers-4.html">Offer mail 4</a></li>
-                                                <li><a href="email-template-offers-5.html">Offer mail 5</a></li>
-                                                <li><a href="email-template-offers-6.html">Offer mail 6</a></li>
-                                                <li><a href="email-template-offers-7.html">Offer mail 7</a></li>
-                                                <li><a href="email-template-offers-8.html">Offer mail 8</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown position-static">
-                                            <span class="label-note-hot"></span>
-                                            <a href="javascript:void(0)">Vendor account pages
-                                                <i class="ecicon eci-angle-right"></i></a>
-                                            <ul class="sub-menu sub-menu-child">
-                                                <li><a href="vendor-dashboard.html">Vendor Dashboard</a></li>
-                                                <li><a href="vendor-profile.html">Vendor Profile</a></li>
-                                                <li><a href="vendor-uploads.html">Vendor Uploads</a></li>
-                                                <li><a href="vendor-settings.html">Vendor Settings</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown position-static">
-                                            <span class="label-note-trending"></span>
-                                            <a href="javascript:void(0)">User account pages
-                                                <i class="ecicon eci-angle-right"></i></a>
-                                            <ul class="sub-menu sub-menu-child">
-                                                <li><a href="user-profile.html">User Profile</a></li>
-                                                <li><a href="user-history.html">History</a></li>
-                                                <li><a href="wishlist.html">Wishlist</a></li>
-                                                <li><a href="track-order.html">Track Order</a></li>
-                                                <li><a href="user-invoice.html">Invoice</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown position-static"><a href="javascript:void(0)">Construction
-                                                pages
-                                                <i class="ecicon eci-angle-right"></i></a>
-                                            <ul class="sub-menu sub-menu-child">
-                                                <li><a href="404-error-page.html">404 error page</a></li>
-                                                <li><a href="under-maintenance.html">maintanence page</a></li>
-                                                <li><a href="coming-soon.html">Coming soon page</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown position-static">
-                                            <span class="label-note-new"></span>
-                                            <a href="javascript:void(0)">Vendor Catalog pages
-                                                <i class="ecicon eci-angle-right"></i></a>
-                                            <ul class="sub-menu sub-menu-child">
-                                                <li><a href="catalog-single-vendor.html">Catalog Single Vendor</a></li>
-                                                <li><a href="catalog-multi-vendor.html">Catalog Multi Vendor</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown"><a href="javascript:void(0)">Blog</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="blog-left-sidebar.html">Blog left sidebar</a></li>
-                                        <li><a href="blog-right-sidebar.html">Blog right sidebar</a></li>
-                                        <li><a href="blog-detail-left-sidebar.html">Blog detail left sidebar</a></li>
-                                        <li><a href="blog-detail-right-sidebar.html">Blog detail right sidebar</a></li>
-                                        <li><a href="blog-full-width.html">Blog full width</a></li>
-                                        <li><a href="blog-detail-full-width.html">Blog detail full width</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown"><a href="javascript:void(0)">Elements</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="elemets-products.html">Products</a></li>
-                                        <li><a href="elemets-typography.html">Typography</a></li>
-                                        <li><a href="elemets-title.html">Titles</a></li>
-                                        <li><a href="elemets-categories.html">Categories</a></li>
-                                        <li><a href="elemets-buttons.html">Buttons</a></li>
-                                        <li><a href="elemets-tabs.html">Tabs</a></li>
-                                        <li><a href="elemets-accordions.html">Accordions</a></li>
-                                        <li><a href="elemets-blog.html">Blogs</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="offer.html">Hot Offers</a></li>
+{{--                                <li class="dropdown"><span class="main-label-note-new" data-toggle="tooltip"--}}
+{{--                                                           title="NEW"></span><a href="javascript:void(0)">Others</a>--}}
+{{--                                    <ul class="sub-menu">--}}
+{{--                                        <li class="dropdown position-static"><a href="javascript:void(0)">Mail--}}
+{{--                                                Confirmation--}}
+{{--                                                <i class="ecicon eci-angle-right"></i></a>--}}
+{{--                                            <ul class="sub-menu sub-menu-child">--}}
+{{--                                                <li><a href="email-template-confirm-1.html">Mail Confirmation 1</a></li>--}}
+{{--                                                <li><a href="email-template-confirm-2.html">Mail Confirmation 2</a></li>--}}
+{{--                                                <li><a href="email-template-confirm-3.html">Mail Confirmation 3</a></li>--}}
+{{--                                                <li><a href="email-template-confirm-4.html">Mail Confirmation 4</a></li>--}}
+{{--                                                <li><a href="email-template-confirm-5.html">Mail Confirmation 5</a></li>--}}
+{{--                                            </ul>--}}
+{{--                                        </li>--}}
+{{--                                        <li class="dropdown position-static"><a href="javascript:void(0)">Mail Reset--}}
+{{--                                                password--}}
+{{--                                                <i class="ecicon eci-angle-right"></i></a>--}}
+{{--                                            <ul class="sub-menu sub-menu-child">--}}
+{{--                                                <li><a href="email-template-forgot-password-1.html">Reset password 1</a>--}}
+{{--                                                </li>--}}
+{{--                                                <li><a href="email-template-forgot-password-2.html">Reset password 2</a>--}}
+{{--                                                </li>--}}
+{{--                                                <li><a href="email-template-forgot-password-3.html">Reset password 3</a>--}}
+{{--                                                </li>--}}
+{{--                                                <li><a href="email-template-forgot-password-4.html">Reset password 4</a>--}}
+{{--                                                </li>--}}
+{{--                                                <li><a href="email-template-forgot-password-5.html">Reset password 5</a>--}}
+{{--                                                </li>--}}
+{{--                                            </ul>--}}
+{{--                                        </li>--}}
+{{--                                        <li class="dropdown position-static"><a href="javascript:void(0)">Mail--}}
+{{--                                                Promotional--}}
+{{--                                                <i class="ecicon eci-angle-right"></i></a>--}}
+{{--                                            <ul class="sub-menu sub-menu-child">--}}
+{{--                                                <li><a href="email-template-offers-1.html">Offer mail 1</a></li>--}}
+{{--                                                <li><a href="email-template-offers-2.html">Offer mail 2</a></li>--}}
+{{--                                                <li><a href="email-template-offers-3.html">Offer mail 3</a></li>--}}
+{{--                                                <li><a href="email-template-offers-4.html">Offer mail 4</a></li>--}}
+{{--                                                <li><a href="email-template-offers-5.html">Offer mail 5</a></li>--}}
+{{--                                                <li><a href="email-template-offers-6.html">Offer mail 6</a></li>--}}
+{{--                                                <li><a href="email-template-offers-7.html">Offer mail 7</a></li>--}}
+{{--                                                <li><a href="email-template-offers-8.html">Offer mail 8</a></li>--}}
+{{--                                            </ul>--}}
+{{--                                        </li>--}}
+{{--                                        <li class="dropdown position-static">--}}
+{{--                                            <span class="label-note-hot"></span>--}}
+{{--                                            <a href="javascript:void(0)">Vendor account pages--}}
+{{--                                                <i class="ecicon eci-angle-right"></i></a>--}}
+{{--                                            <ul class="sub-menu sub-menu-child">--}}
+{{--                                                <li><a href="vendor-dashboard.html">Vendor Dashboard</a></li>--}}
+{{--                                                <li><a href="vendor-profile.html">Vendor Profile</a></li>--}}
+{{--                                                <li><a href="vendor-uploads.html">Vendor Uploads</a></li>--}}
+{{--                                                <li><a href="vendor-settings.html">Vendor Settings</a></li>--}}
+{{--                                            </ul>--}}
+{{--                                        </li>--}}
+{{--                                        <li class="dropdown position-static">--}}
+{{--                                            <span class="label-note-trending"></span>--}}
+{{--                                            <a href="javascript:void(0)">User account pages--}}
+{{--                                                <i class="ecicon eci-angle-right"></i></a>--}}
+{{--                                            <ul class="sub-menu sub-menu-child">--}}
+{{--                                                <li><a href="user-profile.html">User Profile</a></li>--}}
+{{--                                                <li><a href="user-history.html">History</a></li>--}}
+{{--                                                <li><a href="wishlist.html">Wishlist</a></li>--}}
+{{--                                                <li><a href="track-order.html">Track Order</a></li>--}}
+{{--                                                <li><a href="user-invoice.html">Invoice</a></li>--}}
+{{--                                            </ul>--}}
+{{--                                        </li>--}}
+{{--                                        <li class="dropdown position-static"><a href="javascript:void(0)">Construction--}}
+{{--                                                pages--}}
+{{--                                                <i class="ecicon eci-angle-right"></i></a>--}}
+{{--                                            <ul class="sub-menu sub-menu-child">--}}
+{{--                                                <li><a href="404-error-page.html">404 error page</a></li>--}}
+{{--                                                <li><a href="under-maintenance.html">maintanence page</a></li>--}}
+{{--                                                <li><a href="coming-soon.html">Coming soon page</a></li>--}}
+{{--                                            </ul>--}}
+{{--                                        </li>--}}
+{{--                                        <li class="dropdown position-static">--}}
+{{--                                            <span class="label-note-new"></span>--}}
+{{--                                            <a href="javascript:void(0)">Vendor Catalog pages--}}
+{{--                                                <i class="ecicon eci-angle-right"></i></a>--}}
+{{--                                            <ul class="sub-menu sub-menu-child">--}}
+{{--                                                <li><a href="catalog-single-vendor.html">Catalog Single Vendor</a></li>--}}
+{{--                                                <li><a href="catalog-multi-vendor.html">Catalog Multi Vendor</a></li>--}}
+{{--                                            </ul>--}}
+{{--                                        </li>--}}
+{{--                                    </ul>--}}
+{{--                                </li>--}}
+
+                                <li><a href="offer.html">{{__('validation.attributes.contact_us')}}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -741,340 +664,345 @@
                     <!-- Sidebar Category Block -->
                     <div class="ec-sidebar-block">
                         <div class="ec-sb-title">
-                            <h3 class="ec-sidebar-title">Category<button class="ec-close">×</button></h3>
+                            <h3 class="ec-sidebar-title">{{__('validation.attributes.categories')}}<button class="ec-close">×</button></h3>
                         </div>
+                        @foreach($categories as $category)
+
                         <div class="ec-sb-block-content">
                             <ul>
                                 <li>
-                                    <div class="ec-sidebar-block-item"><img src="assets/images/icons/dress-8.png" class="svg_img" alt="drink" />Cothes</div>
-                                    <ul style="display: block;">
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Shirt <span title="Available Stock">- 25</span></a>
+                                    <div class="ec-sidebar-block-item d-flex justify-content-between">
+                                        {{ app()->getLocale() == 'fa' ? $category->name : $category->name_en }}
+                                        <i class="bi bi-plus"></i>
+                                    </div>
+                                    @if($category->children->count())
+                                    <ul style="display: none;">
+                                        @foreach($category->children as $child)
+                                        <li class="py-2">
+                                            <div class="ec-sidebar-sub-item"><a wire:navigate href="{{route('store.category',['slug'=>$child->id.$child->name])}}">_  {{ app()->getLocale() == 'fa' ? $child->name : $child->name_en }} <span title="Available Stock"> 25</span></a>
                                             </div>
+                                            @if($child->children->count())
+                                                <ul style="display: none;">
+                                                    @foreach($child->children as $subChild)
+                                                        <li class="ec-sidebar-sub-item py-1"><a wire:navigate href="{{route('store.category',['slug'=>$subChild->id.$subChild->name])}}" style="font-size: 12px; color: #333333 !important;">___  {{ app()->getLocale() == 'fa' ? $subChild->name : $subChild->name_en }}<span title="Available Stock"> 25</span></a></li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
                                         </li>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">shorts & jeans <span title="Available Stock">- 52</span></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">jacket<span title="Available Stock">- 500</span></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">dress & frock  <span title="Available Stock">- 35</span></a>
-                                            </div>
-                                        </li>
+                                        @endforeach
                                     </ul>
+                                    @endif
                                 </li>
                             </ul>
                         </div>
-                        <div class="ec-sb-block-content">
-                            <ul>
-                                <li>
-                                    <div class="ec-sidebar-block-item"><img src="assets/images/icons/shoes-8.png" class="svg_img" alt="drink" />Footwear</div>
-                                    <ul>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Sports <span title="Available Stock">- 25</span></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Formal <span title="Available Stock">- 52</span></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Casual <span title="Available Stock">- 40</span></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">safety shoes <span title="Available Stock">- 35</span></a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="ec-sb-block-content">
-                            <ul>
-                                <li>
-                                    <div class="ec-sidebar-block-item"><img src="assets/images/icons/jewelry-8.png" class="svg_img" alt="drink" />jewelry</div>
-                                    <ul>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Earrings <span title="Available Stock">- 50</span></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Couple Rings <span title="Available Stock">- 35</span></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Necklace <span title="Available Stock">- 40</span></a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="ec-sb-block-content">
-                            <ul>
-                                <li>
-                                    <div class="ec-sidebar-block-item"><img src="assets/images/icons/perfume-8.png" class="svg_img" alt="drink" />perfume</div>
-                                    <ul>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Clothes perfume<span title="Available Stock">- 4 pcs</span></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">deodorant <span title="Available Stock">- 52 pcs</span></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Flower fragrance <span title="Available Stock">- 10 pack</span></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Air Freshener<span title="Available Stock">- 35 pack</span></a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="ec-sb-block-content">
-                            <ul>
-                                <li>
-                                    <div class="ec-sidebar-block-item"><img src="assets/images/icons/cosmetics-8.png" class="svg_img" alt="drink" />cosmetics</div>
-                                    <ul>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">shampoo<span title="Available Stock"></span></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Sunscreen<span title="Available Stock"></span></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">body wash<span title="Available Stock"></span></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">makeup kit<span title="Available Stock"></span></a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="ec-sb-block-content">
-                            <ul>
-                                <li>
-                                    <div class="ec-sidebar-block-item"><img src="assets/images/icons/glasses-8.png" class="svg_img" alt="drink" />glasses</div>
-                                    <ul>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Sunglasses <span title="Available Stock">- 20</span></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Lenses <span title="Available Stock">- 52</span></a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="ec-sb-block-content">
-                            <ul>
-                                <li>
-                                    <div class="ec-sidebar-block-item"><img src="assets/images/icons/bag-8.png" class="svg_img" alt="drink" />bags</div>
-                                    <ul>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">shopping bag <span title="Available Stock">- 25</span></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Gym backpack <span title="Available Stock">- 52</span></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">purse <span title="Available Stock">- 40</span></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">wallet <span title="Available Stock">- 35</span></a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
+                        @endforeach
+{{--                        <div class="ec-sb-block-content">--}}
+{{--                            <ul>--}}
+{{--                                <li>--}}
+{{--                                    <div class="ec-sidebar-block-item"><img src="assets/images/icons/shoes-8.png" class="svg_img" alt="drink" />Footwear</div>--}}
+{{--                                    <ul>--}}
+{{--                                        <li>--}}
+{{--                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Sports <span title="Available Stock">- 25</span></a>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                        <li>--}}
+{{--                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Formal <span title="Available Stock">- 52</span></a>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                        <li>--}}
+{{--                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Casual <span title="Available Stock">- 40</span></a>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                        <li>--}}
+{{--                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">safety shoes <span title="Available Stock">- 35</span></a>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                    </ul>--}}
+{{--                                </li>--}}
+{{--                            </ul>--}}
+{{--                        </div>--}}
+{{--                        <div class="ec-sb-block-content">--}}
+{{--                            <ul>--}}
+{{--                                <li>--}}
+{{--                                    <div class="ec-sidebar-block-item"><img src="assets/images/icons/jewelry-8.png" class="svg_img" alt="drink" />jewelry</div>--}}
+{{--                                    <ul>--}}
+{{--                                        <li>--}}
+{{--                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Earrings <span title="Available Stock">- 50</span></a>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                        <li>--}}
+{{--                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Couple Rings <span title="Available Stock">- 35</span></a>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                        <li>--}}
+{{--                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Necklace <span title="Available Stock">- 40</span></a>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                    </ul>--}}
+{{--                                </li>--}}
+{{--                            </ul>--}}
+{{--                        </div>--}}
+{{--                        <div class="ec-sb-block-content">--}}
+{{--                            <ul>--}}
+{{--                                <li>--}}
+{{--                                    <div class="ec-sidebar-block-item"><img src="assets/images/icons/perfume-8.png" class="svg_img" alt="drink" />perfume</div>--}}
+{{--                                    <ul>--}}
+{{--                                        <li>--}}
+{{--                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Clothes perfume<span title="Available Stock">- 4 pcs</span></a>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                        <li>--}}
+{{--                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">deodorant <span title="Available Stock">- 52 pcs</span></a>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                        <li>--}}
+{{--                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Flower fragrance <span title="Available Stock">- 10 pack</span></a>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                        <li>--}}
+{{--                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Air Freshener<span title="Available Stock">- 35 pack</span></a>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                    </ul>--}}
+{{--                                </li>--}}
+{{--                            </ul>--}}
+{{--                        </div>--}}
+{{--                        <div class="ec-sb-block-content">--}}
+{{--                            <ul>--}}
+{{--                                <li>--}}
+{{--                                    <div class="ec-sidebar-block-item"><img src="assets/images/icons/cosmetics-8.png" class="svg_img" alt="drink" />cosmetics</div>--}}
+{{--                                    <ul>--}}
+{{--                                        <li>--}}
+{{--                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">shampoo<span title="Available Stock"></span></a>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                        <li>--}}
+{{--                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Sunscreen<span title="Available Stock"></span></a>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                        <li>--}}
+{{--                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">body wash<span title="Available Stock"></span></a>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                        <li>--}}
+{{--                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">makeup kit<span title="Available Stock"></span></a>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                    </ul>--}}
+{{--                                </li>--}}
+{{--                            </ul>--}}
+{{--                        </div>--}}
+{{--                        <div class="ec-sb-block-content">--}}
+{{--                            <ul>--}}
+{{--                                <li>--}}
+{{--                                    <div class="ec-sidebar-block-item"><img src="assets/images/icons/glasses-8.png" class="svg_img" alt="drink" />glasses</div>--}}
+{{--                                    <ul>--}}
+{{--                                        <li>--}}
+{{--                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Sunglasses <span title="Available Stock">- 20</span></a>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                        <li>--}}
+{{--                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Lenses <span title="Available Stock">- 52</span></a>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                    </ul>--}}
+{{--                                </li>--}}
+{{--                            </ul>--}}
+{{--                        </div>--}}
+{{--                        <div class="ec-sb-block-content">--}}
+{{--                            <ul>--}}
+{{--                                <li>--}}
+{{--                                    <div class="ec-sidebar-block-item"><img src="assets/images/icons/bag-8.png" class="svg_img" alt="drink" />bags</div>--}}
+{{--                                    <ul>--}}
+{{--                                        <li>--}}
+{{--                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">shopping bag <span title="Available Stock">- 25</span></a>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                        <li>--}}
+{{--                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Gym backpack <span title="Available Stock">- 52</span></a>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                        <li>--}}
+{{--                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">purse <span title="Available Stock">- 40</span></a>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                        <li>--}}
+{{--                                            <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">wallet <span title="Available Stock">- 35</span></a>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                    </ul>--}}
+{{--                                </li>--}}
+{{--                            </ul>--}}
+{{--                        </div>--}}
                     </div>
                     <!-- Sidebar Category Block -->
                 </div>
             </div>
-            <div class="ec-sidebar-slider-cat">
-                <div class="ec-sb-slider-title">Best Sellers</div>
-                <div class="ec-sb-pro-sl">
-                    <div>
-                        <div class="ec-sb-pro-sl-item">
-                            <a href="product-left-sidebar.html" class="sidekka_pro_img"><img
-                                    src="assets/images/product-image/1.jpg" alt="product" /></a>
-                            <div class="ec-pro-content">
-                                <h5 class="ec-pro-title"><a href="product-left-sidebar.html">baby fabric shoes</a></h5>
-                                <div class="ec-pro-rating">
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                </div>
-                                <span class="ec-price">
-                                        <span class="old-price">$5.00</span>
-                                        <span class="new-price">$4.00</span>
-                                    </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="ec-sb-pro-sl-item">
-                            <a href="product-left-sidebar.html" class="sidekka_pro_img"><img
-                                    src="assets/images/product-image/2.jpg" alt="product" /></a>
-                            <div class="ec-pro-content">
-                                <h5 class="ec-pro-title"><a href="product-left-sidebar.html">Men's hoodies t-shirt</a></h5>
-                                <div class="ec-pro-rating">
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star"></i>
-                                </div>
-                                <span class="ec-price">
-                                        <span class="old-price">$10.00</span>
-                                        <span class="new-price">$7.00</span>
-                                    </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="ec-sb-pro-sl-item">
-                            <a href="product-left-sidebar.html" class="sidekka_pro_img"><img
-                                    src="assets/images/product-image/3.jpg" alt="product" /></a>
-                            <div class="ec-pro-content">
-                                <h5 class="ec-pro-title"><a href="product-left-sidebar.html">Girls t-shirt</a></h5>
-                                <div class="ec-pro-rating">
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star"></i>
-                                    <i class="ecicon eci-star"></i>
-                                </div>
-                                <span class="ec-price">
-                                        <span class="old-price">$5.00</span>
-                                        <span class="new-price">$3.00</span>
-                                    </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="ec-sb-pro-sl-item">
-                            <a href="product-left-sidebar.html" class="sidekka_pro_img"><img
-                                    src="assets/images/product-image/4.jpg" alt="product" /></a>
-                            <div class="ec-pro-content">
-                                <h5 class="ec-pro-title"><a href="product-left-sidebar.html">woolen hat for men</a></h5>
-                                <div class="ec-pro-rating">
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                </div>
-                                <span class="ec-price">
-                                        <span class="old-price">$15.00</span>
-                                        <span class="new-price">$12.00</span>
-                                    </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="ec-sb-pro-sl-item">
-                            <a href="product-left-sidebar.html" class="sidekka_pro_img"><img
-                                    src="assets/images/product-image/5.jpg" alt="product" /></a>
-                            <div class="ec-pro-content">
-                                <h5 class="ec-pro-title"><a href="product-left-sidebar.html">Womens purse</a></h5>
-                                <div class="ec-pro-rating">
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star"></i>
-                                </div>
-                                <span class="ec-price">
-                                        <span class="old-price">$15.00</span>
-                                        <span class="new-price">$12.00</span>
-                                    </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="ec-sb-pro-sl-item">
-                            <a href="product-left-sidebar.html" class="sidekka_pro_img"><img
-                                    src="assets/images/product-image/6.jpg" alt="product" /></a>
-                            <div class="ec-pro-content">
-                                <h5 class="ec-pro-title"><a href="product-left-sidebar.html">Baby toy doctor kit</a></h5>
-                                <div class="ec-pro-rating">
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star"></i>
-                                    <i class="ecicon eci-star"></i>
-                                    <i class="ecicon eci-star"></i>
-                                </div>
-                                <span class="ec-price">
-                                        <span class="old-price">$50.00</span>
-                                        <span class="new-price">$45.00</span>
-                                    </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="ec-sb-pro-sl-item">
-                            <a href="product-left-sidebar.html" class="sidekka_pro_img"><img
-                                    src="assets/images/product-image/7.jpg" alt="product" /></a>
-                            <div class="ec-pro-content">
-                                <h5 class="ec-pro-title"><a href="product-left-sidebar.html">teddy bear baby toy</a></h5>
-                                <div class="ec-pro-rating">
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                </div>
-                                <span class="ec-price">
-                                        <span class="old-price">$35.00</span>
-                                        <span class="new-price">$25.00</span>
-                                    </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="ec-sb-pro-sl-item">
-                            <a href="product-left-sidebar.html" class="sidekka_pro_img"><img
-                                    src="assets/images/product-image/2.jpg" alt="product" /></a>
-                            <div class="ec-pro-content">
-                                <h5 class="ec-pro-title"><a href="product-left-sidebar.html">Mens hoodies blue</a></h5>
-                                <div class="ec-pro-rating">
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star"></i>
-                                    <i class="ecicon eci-star"></i>
-                                </div>
-                                <span class="ec-price">
-                                        <span class="old-price">$15.00</span>
-                                        <span class="new-price">$13.00</span>
-                                    </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+{{--            <div class="ec-sidebar-slider-cat">--}}
+{{--                <div class="ec-sb-slider-title">Best Sellers</div>--}}
+{{--                <div class="ec-sb-pro-sl">--}}
+{{--                    <div>--}}
+{{--                        <div class="ec-sb-pro-sl-item">--}}
+{{--                            <a href="product-left-sidebar.html" class="sidekka_pro_img"><img--}}
+{{--                                    src="assets/images/product-image/1.jpg" alt="product" /></a>--}}
+{{--                            <div class="ec-pro-content">--}}
+{{--                                <h5 class="ec-pro-title"><a href="product-left-sidebar.html">baby fabric shoes</a></h5>--}}
+{{--                                <div class="ec-pro-rating">--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                </div>--}}
+{{--                                <span class="ec-price">--}}
+{{--                                        <span class="old-price">$5.00</span>--}}
+{{--                                        <span class="new-price">$4.00</span>--}}
+{{--                                    </span>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div>--}}
+{{--                        <div class="ec-sb-pro-sl-item">--}}
+{{--                            <a href="product-left-sidebar.html" class="sidekka_pro_img"><img--}}
+{{--                                    src="assets/images/product-image/2.jpg" alt="product" /></a>--}}
+{{--                            <div class="ec-pro-content">--}}
+{{--                                <h5 class="ec-pro-title"><a href="product-left-sidebar.html">Men's hoodies t-shirt</a></h5>--}}
+{{--                                <div class="ec-pro-rating">--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star"></i>--}}
+{{--                                </div>--}}
+{{--                                <span class="ec-price">--}}
+{{--                                        <span class="old-price">$10.00</span>--}}
+{{--                                        <span class="new-price">$7.00</span>--}}
+{{--                                    </span>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div>--}}
+{{--                        <div class="ec-sb-pro-sl-item">--}}
+{{--                            <a href="product-left-sidebar.html" class="sidekka_pro_img"><img--}}
+{{--                                    src="assets/images/product-image/3.jpg" alt="product" /></a>--}}
+{{--                            <div class="ec-pro-content">--}}
+{{--                                <h5 class="ec-pro-title"><a href="product-left-sidebar.html">Girls t-shirt</a></h5>--}}
+{{--                                <div class="ec-pro-rating">--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star"></i>--}}
+{{--                                    <i class="ecicon eci-star"></i>--}}
+{{--                                </div>--}}
+{{--                                <span class="ec-price">--}}
+{{--                                        <span class="old-price">$5.00</span>--}}
+{{--                                        <span class="new-price">$3.00</span>--}}
+{{--                                    </span>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div>--}}
+{{--                        <div class="ec-sb-pro-sl-item">--}}
+{{--                            <a href="product-left-sidebar.html" class="sidekka_pro_img"><img--}}
+{{--                                    src="assets/images/product-image/4.jpg" alt="product" /></a>--}}
+{{--                            <div class="ec-pro-content">--}}
+{{--                                <h5 class="ec-pro-title"><a href="product-left-sidebar.html">woolen hat for men</a></h5>--}}
+{{--                                <div class="ec-pro-rating">--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                </div>--}}
+{{--                                <span class="ec-price">--}}
+{{--                                        <span class="old-price">$15.00</span>--}}
+{{--                                        <span class="new-price">$12.00</span>--}}
+{{--                                    </span>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div>--}}
+{{--                        <div class="ec-sb-pro-sl-item">--}}
+{{--                            <a href="product-left-sidebar.html" class="sidekka_pro_img"><img--}}
+{{--                                    src="assets/images/product-image/5.jpg" alt="product" /></a>--}}
+{{--                            <div class="ec-pro-content">--}}
+{{--                                <h5 class="ec-pro-title"><a href="product-left-sidebar.html">Womens purse</a></h5>--}}
+{{--                                <div class="ec-pro-rating">--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star"></i>--}}
+{{--                                </div>--}}
+{{--                                <span class="ec-price">--}}
+{{--                                        <span class="old-price">$15.00</span>--}}
+{{--                                        <span class="new-price">$12.00</span>--}}
+{{--                                    </span>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div>--}}
+{{--                        <div class="ec-sb-pro-sl-item">--}}
+{{--                            <a href="product-left-sidebar.html" class="sidekka_pro_img"><img--}}
+{{--                                    src="assets/images/product-image/6.jpg" alt="product" /></a>--}}
+{{--                            <div class="ec-pro-content">--}}
+{{--                                <h5 class="ec-pro-title"><a href="product-left-sidebar.html">Baby toy doctor kit</a></h5>--}}
+{{--                                <div class="ec-pro-rating">--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star"></i>--}}
+{{--                                    <i class="ecicon eci-star"></i>--}}
+{{--                                    <i class="ecicon eci-star"></i>--}}
+{{--                                </div>--}}
+{{--                                <span class="ec-price">--}}
+{{--                                        <span class="old-price">$50.00</span>--}}
+{{--                                        <span class="new-price">$45.00</span>--}}
+{{--                                    </span>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div>--}}
+{{--                        <div class="ec-sb-pro-sl-item">--}}
+{{--                            <a href="product-left-sidebar.html" class="sidekka_pro_img"><img--}}
+{{--                                    src="assets/images/product-image/7.jpg" alt="product" /></a>--}}
+{{--                            <div class="ec-pro-content">--}}
+{{--                                <h5 class="ec-pro-title"><a href="product-left-sidebar.html">teddy bear baby toy</a></h5>--}}
+{{--                                <div class="ec-pro-rating">--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                </div>--}}
+{{--                                <span class="ec-price">--}}
+{{--                                        <span class="old-price">$35.00</span>--}}
+{{--                                        <span class="new-price">$25.00</span>--}}
+{{--                                    </span>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div>--}}
+{{--                        <div class="ec-sb-pro-sl-item">--}}
+{{--                            <a href="product-left-sidebar.html" class="sidekka_pro_img"><img--}}
+{{--                                    src="assets/images/product-image/2.jpg" alt="product" /></a>--}}
+{{--                            <div class="ec-pro-content">--}}
+{{--                                <h5 class="ec-pro-title"><a href="product-left-sidebar.html">Mens hoodies blue</a></h5>--}}
+{{--                                <div class="ec-pro-rating">--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star fill"></i>--}}
+{{--                                    <i class="ecicon eci-star"></i>--}}
+{{--                                    <i class="ecicon eci-star"></i>--}}
+{{--                                </div>--}}
+{{--                                <span class="ec-price">--}}
+{{--                                        <span class="old-price">$15.00</span>--}}
+{{--                                        <span class="new-price">$13.00</span>--}}
+{{--                                    </span>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
         </div>
     </div>
 </div>

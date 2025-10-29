@@ -53,7 +53,7 @@ class CategoryWireCreate extends Component
 
     public function render()
     {
-        $categories = Category::all();
+        $categories = Category::with('parent')->get();
         return view('livewire.admin.category.category-wire-create',['categories'=>$categories])->layout('layouts.app');
     }
 }

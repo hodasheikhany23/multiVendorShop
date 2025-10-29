@@ -7,7 +7,6 @@
 
     {{-- Vite CSS & JS --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
     {{-- Livewire Styles --}}
     @livewireStyles
     <link rel="shortcut icon" href="{{asset('assets/media/logos/logo-1.ico')}}" />
@@ -21,8 +20,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <!--begin::Global Theme Styles(used by all pages) -->
-    <link href="{{asset('assets/css/front/style.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/css/front/demo10.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/css/front/rtl.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/css/front/responsive.css')}}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{asset('assets/css/front/plugins/animate.css')}}" />
@@ -35,40 +32,32 @@
     <link rel="stylesheet" href="{{asset('assets/css/front/plugins/owl.carousel.min.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/front/plugins/owl.theme.default.min.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/front/plugins/bootstrap.css')}}" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link href="{{asset('assets/css/front/style.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/css/front/demo10.css')}}" rel="stylesheet" type="text/css" />
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.rtl.min.css"
+        integrity="sha384-CfCrinSRH2IR6a4e6fy2q6ioOX7O6Mtm1L9vRvFZ1trBncWmMePhzvafv7oIcWiW"
+        crossorigin="anonymous"
+    >
     <!--end::Global Theme Styles -->
 
 
 </head>
 <body dir="rtl" class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--fixed kt-subheader--enabled kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading">
-
-@livewire('front.header')
-
-@if(\Illuminate\Support\Facades\Auth::check())
+@if (!request()->routeIs('login','register'))
+    @livewire('front.header')
+@endif
     <main class="bg-gray-100 kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper">
         {{ $slot ?? '' }}
-        @else
-            <main>
-                @yield('content')
-                @endif
+        @yield('content')
             </main>
 
-            <!-- begin:: Footer -->
-            <div class="kt-footer kt-grid__item kt-grid kt-grid--desktop kt-grid--ver-desktop" id="kt_footer">
-                <div class="kt-footer__copyright">
-                    2025&nbsp;&copy;&nbsp;<a wire:navigate href="/admin/menu" target="_blank" class="kt-link">HodaWeb</a>
-                </div>
-                <div class="kt-footer__menu">
-                    <a wire:navigate href="/admin/menu" target="_blank" class="kt-footer__menu-link kt-link">درباره ما</a>
-                    <a wire:navigate href="/admin/menu" target="_blank" class="kt-footer__menu-link kt-link">تیم ما</a>
-                    <a wire:navigate href="/admin/menu" target="_blank" class="kt-footer__menu-link kt-link">تماس با ما</a>
-                </div>
-            </div>
 
-            <!-- end:: Footer -->
 
-            @livewireScripts
+    @livewireScripts
 
 
             <!-- begin::Global Config(global config for global JS sciprts) -->

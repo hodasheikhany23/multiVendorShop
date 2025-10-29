@@ -201,7 +201,7 @@
                                     </span>
                                 @endforeach
                             </td>
-                            <td>{{verta($v->ceated_at)->format('Y/m/d')}}</td>
+                            <td>{{verta($v->created_at)->format('Y/m/d')}}</td>
                             <td class="text-center d-flex justify-content-between">
                                 <a wire:click="deleteVendor({{$v->id}})" class="text-danger btn btn-bolder border-danger btn-sm d-flex justify-content-center align-items-center" style="width:35px; height:35px;">
                                     <i class="fa fa-trash"></i>

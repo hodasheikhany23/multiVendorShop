@@ -1,13 +1,22 @@
-@extends('layouts.app')
+@extends('layouts.front')
 
 @section('content')
-    <section class="ftco-section d-flex align-content-center align-items-center"
-             style="background-image: url('{{asset('assets/media/bg/6012130.jpg')}}'); height: 100vh">
+    <section class="ftco-section d-flex align-content-center align-items-center">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12 col-lg-10">
                     <div class="wrap d-md-flex">
                         <div class="login-wrap p-4 p-md-5">
+                            <div class="d-flex w-100 justify-content-center pb-5 flex-column align-items-center">
+                                <div class="header-logo">
+                                    <a href="index.html"><img src="{{asset('assets/media/logos/logo-2.png')}}" alt="Site Logo" /><img
+                                            class="dark-logo" src="{{asset('assets/media/logos/logo-2.png')}}" alt="Site Logo"
+                                            style="display: none;" /></a>
+                                </div>
+                                <div>
+                                    <p class="color-primary mt-3" style="font-size: 12px; color: var(--color-main); opacity: .8;">{{__('validation.massages.advertising_sentence')}}</p>
+                                </div>
+                            </div>
                             <div class="d-flex">
                                 <div class="w-100">
                                     <h3 class="mb-4"> {{__('validation.auth.login')}}</h3>
@@ -49,16 +58,13 @@
                                     </span>
                                     @enderror
                                 </div>
-                                <div class="form-group d-md-flex">
-                                    <div class="form-check">
-                                        <input class="form-check-input checkbox-primary" type="checkbox" name="remember"
-                                               id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                        <label class="form-check-label mx-4" for="remember">
-                                            {{__('validation.auth.remember_me')}}
-                                        </label>
-                                    </div>
+                                <div class="form-check mb-4">
+                                    <input class="checkbox-primary" style="width: 1em; height: 1em;" type="checkbox" value="" id="flexCheckChecked" {{ old('remember') ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="flexCheckChecked">
+                                        {{__('validation.auth.remember_me')}}
+                                    </label>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group mb-5">
                                     <button type="submit" class="form-control btn btn-primary rounded submit px-3">  {{__('validation.auth.login')}}</button>
                                 </div>
                             </form>

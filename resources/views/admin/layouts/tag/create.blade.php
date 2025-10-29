@@ -1,0 +1,1 @@
+<livewire:tag-wire-create />

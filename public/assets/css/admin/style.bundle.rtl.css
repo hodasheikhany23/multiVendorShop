@@ -10,9 +10,13 @@
     --color-gray-light: #938E99;
     --color-background: #F4EDF9;
     /*--color-main: rgb(213, 70, 92);*/
+    /*--color-main: #76b852;*/
     --color-main: #d3522a;
+    /*--color-main: #008081;*/
+    /*--color-main: #ee1843;*/
+    /*--color-main: #B3315F;*/
     --color-1: #FF5733;
-    --color-2: #AB3585;
+    --color-2: #bc421c;
     --color-3: #b31e0f;
     --color-4: #F2A071;
     --primary: #D5465C;
@@ -50308,4 +50312,14 @@ and (max-width: 1024px) {
 .form-check-input[type='checkbox']:checked {
     background-color: red !important;
     border-color: red !important;
+}
+.dropzone{
+    min-width : 150px !important;
+}
+
+.text-primary{
+    color:var(--color-main) !important;
+}
+.btn-primary:hover{
+    background-color: var(--color-3) !important;
 }

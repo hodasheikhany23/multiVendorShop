@@ -10,6 +10,16 @@ Auth::routes();
 Route::get('/',\App\Livewire\Front\Home::class)->name('home');
 Route::get('/home',\App\Livewire\Front\Home::class)->name('home');
 
+Route::get('store/category/{slug}',\App\Livewire\Front\ProductCategoryWire::class)->name('store.category');
+Route::get('store/category/{slug}/{product}/detail',\App\Livewire\Front\ProductDetailWire::class)->name('store.product.detail');
+
+
+// Admin routes
+Route::prefix('admin')->middleware(['auth','can:admin'])->group(function () {
+    Route::get('dashboard', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.dashboard');
+});
+Route::get('admin/login', [App\Http\Controllers\Auth\LoginController::class, 'showAdminLoginForm'])->name('admin.login');
+
 //Route::get('/', function () {
 //    return view('admin.layouts.dashboard');
 //})->middleware(['auth','can:admin']);
@@ -74,3 +84,50 @@ Route::prefix('admin/category')->group(function(){
         ->middleware(['auth','can:admin']);
 
 });
+
+Route::prefix('admin/tag')->group(function(){
+    Route::get('/',\App\Livewire\Admin\Tag\TagWire::class)
+        ->name('admin.tag.index')
+        ->middleware(['auth','can:admin']);
+
+    Route::get('/create',\App\Livewire\Admin\Tag\TagWireCreate::class)
+        ->name('admin.tag.create')
+        ->middleware(['auth','can:admin']);
+
+    Route::get('/{tag}/edit',\App\Livewire\Admin\Tag\TagWireUpdate::class)
+        ->name('admin.tag.edit')
+        ->middleware(['auth','can:admin']);
+
+});
+
+
+Route::prefix('admin/attribute')->group(function(){
+    Route::get('/',\App\Livewire\Admin\Atrribute\AttributeWire::class)
+        ->name('admin.attribute.index')
+        ->middleware(['auth','can:admin']);
+
+    Route::get('/create',\App\Livewire\Admin\Atrribute\AttributeWireCreate::class)
+        ->name('admin.attribute.create')
+        ->middleware(['auth','can:admin']);
+
+    Route::get('/{attribute}/edit',\App\Livewire\Admin\Atrribute\AttributeWireUpdate::class)
+        ->name('admin.attribute.edit')
+        ->middleware(['auth','can:admin']);
+
+});
+
+Route::prefix('admin/product')->group(function(){
+    Route::get('/',\App\Livewire\Admin\Product\ProductWire::class)
+        ->name('admin.product.index')
+        ->middleware(['auth','can:admin']);
+
+    Route::get('/create',\App\Livewire\Admin\Product\ProductWireCreate::class)
+        ->name('admin.product.create')
+        ->middleware(['auth','can:admin']);
+
+    Route::get('/{product}/edit',\App\Livewire\Admin\Product\ProductWireUpdate::class)
+        ->name('admin.product.edit')
+        ->middleware(['auth','can:admin']);
+
+});
+

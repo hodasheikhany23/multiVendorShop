@@ -76,12 +76,21 @@
                                     @foreach($categories as $c)
                                         <option value="{{$c->id}}">
                                             @if(app()->getLocale()==='fa')
-                                                {{$c->name}}
+                                                {{$c->parent ? $c->full_name : $c->name}}
                                             @else
-                                                {{$c->name_en ?? $m->name}}
+                                                @if($c->parent != null)
+                                                    @if($c->parent->name_en != null)
+                                                        {{$c->full_name}}
+                                                    @else
+                                                        {{$c->parent->name}}
+                                                    @endif
+                                                @else
+                                                    {{$c->name_en}}
+                                                @endif
                                             @endif
                                         </option>
                                     @endforeach
+
                                 </select>
 
                             </div>

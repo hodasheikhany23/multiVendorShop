@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('model_id');
             $table->integer('size');
             $table->string('mime_type');
+            $table->boolean('is_main')->default(false);
             $table->timestamps();
         });
     }

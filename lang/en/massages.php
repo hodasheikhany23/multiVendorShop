@@ -13,4 +13,5 @@ return [
     'create_menu'=>'create menu',
     'list_menu'=>'menus list',
     'add_translation'=>'add translation',
+    'advertising_sentence'=>'The store, a modern store for smart shopping',
 ];

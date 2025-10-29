@@ -57,6 +57,8 @@
     <link href="{{asset('assets/css/admin/skins/brand/light.rtl.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/css/admin/skins/aside/light.rtl.css')}}" rel="stylesheet" type="text/css" />
 
+    <link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
+
 </head>
 <body dir="rtl" class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--fixed kt-subheader--enabled kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading">
 @auth
@@ -209,7 +211,9 @@
 
 <!--begin::Page Scripts(used by this page) -->
 <script src="{{asset('assets/js/demo1/pages/dashboard.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/js/demo1/pages/crud/forms/widgets/bootstrap-touchspin.js')}}" type="text/javascript"></script>
 
+<script src="https://unpkg.com/dropzone"></script>
 
 
 <script>
@@ -219,6 +223,6 @@
         });
     });
 </script>
-
+@stack('scripts')
 </body>
 </html>

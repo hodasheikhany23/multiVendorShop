@@ -14,6 +14,6 @@ return [
     'create_menu'=>'ایجاد منو',
     'list_menu'=>'لیست منو ها',
     'add_translation'=>'افزودن ترجمه ',
-
+    'advertising_sentence'=>'فروشگاه، فروشگاهی مدرن برای خرید هوشمندانه',
 
 ];

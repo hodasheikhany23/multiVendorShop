@@ -31,6 +31,7 @@ return [
     'reset'=>'Reset',
     'phone'=>'phone',
     'role'=>'role',
+    'admin-login'=>'Admin Login',
 
 
 

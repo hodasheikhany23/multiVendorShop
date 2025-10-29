@@ -16,7 +16,9 @@
   left: 10px;
   right: auto;
 }
-
+.text-primary{
+    color:var(--color-main) !important;
+}
 .slick-slider {
   direction: ltr;
 }
@@ -1207,3 +1209,6 @@ h4.ec-faq-title::after {
   margin: 0 0 0 15px;
 }
 /*# sourceMappingURL=rtl.css.map */
+.btn-primary:hover{
+    background-color: var(--color-3) !important;
+}

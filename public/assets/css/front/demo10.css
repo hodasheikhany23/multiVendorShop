@@ -7,11 +7,12 @@
     --color-dark: #2E2E2E;
     --color-gray-dark: #4B4B4B;
     --color-gray-light: #938E99;
-    --color-background: #F4EDF9;
+    --color-background: rgba(211, 82, 42, 0.16);
     /*--color-main: rgb(213, 70, 92);*/
     --color-main: #d3522a;
+    /*--color-main: #B3315F;*/
     --color-1: #FF5733;
-    --color-2: #AB3585;
+    --color-2: #BC421CFF;
     --color-3: #b31e0f;
     --color-4: #F2A071;
     --primary: #D5465C;
@@ -22,6 +23,14 @@
     --danger: #fd397a;
     --light: #f8f9fa;
     --dark: #343a40;
+
+    --color-gray-100: #f5f5f5;
+    --color-gray-150: #eceaea;
+    --color-gray-200: #e0e0e0;
+    --color-gray-400: #bdbdbd;
+    --color-gray-600: #8e8e8e;
+    --color-gray-800: #555555;
+
     --breakpoint-xs: 0;
     --breakpoint-sm: 576px;
     --breakpoint-md: 768px;
@@ -227,7 +236,6 @@ ol ul {
 }
 
 ul {
-  padding-left: 2rem;
   margin-top: 0;
   margin-bottom: 1rem;
   margin-top: 0;
@@ -242,7 +250,9 @@ ul ul {
 ul ol {
   margin-bottom: 0;
 }
-
+ul{
+    padding : 0 !important;
+}
 dl {
   margin-top: 0;
   margin-bottom: 1rem;
@@ -327,7 +337,6 @@ a > code {
 }
 
 pre {
-  font-family: var(--bs-font-monospace);
   font-size: 1em;
   display: block;
   margin-top: 0;
@@ -343,7 +352,6 @@ pre code {
 }
 
 code {
-  font-family: var(--bs-font-monospace);
   font-size: 1em;
   font-size: 0.875rem;
   color: #D63384;
@@ -351,7 +359,6 @@ code {
 }
 
 kbd {
-  font-family: var(--bs-font-monospace);
   font-size: 1em;
   padding: 3.2px 6.4px;
   font-size: 0.875rem;
@@ -366,7 +373,6 @@ kbd kbd {
 }
 
 samp {
-  font-family: var(--bs-font-monospace);
   font-size: 1em;
 }
 
@@ -3620,7 +3626,6 @@ textarea.form-control.is-invalid {
 
 .btn-group-vertical {
   position: relative;
-  display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
   vertical-align: middle;
@@ -5068,7 +5073,6 @@ textarea.form-control.is-invalid {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: "Poppins, sans-serif";
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -5223,7 +5227,6 @@ textarea.form-control.is-invalid {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: "Poppins, sans-serif";
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -7612,8 +7615,8 @@ textarea.form-control.is-invalid {
   line-height: 2;
 }
 
-.bg-primary {
-  background-color: #555;
+.bg-primary1{
+    background-color: var(--color-main) !important;
 }
 
 .bg-secondary {
@@ -7693,9 +7696,7 @@ textarea.form-control.is-invalid {
   word-break: break-word;
 }
 
-.font-monospace {
-  font-family: var(--bs-font-monospace);
-}
+
 
 .user-select-all {
   -webkit-user-select: all;
@@ -13723,7 +13724,6 @@ li {
   display: inline-block;
   position: fixed;
   letter-spacing: 0.1px;
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   z-index: 16;
 }
 .ec-fb-style .fb-panel {
@@ -14367,7 +14367,7 @@ li {
   min-height: 45px;
   padding: 0 12px;
   border: 1px solid #eeeeee;
-  border-radius: 0;
+  border-radius: 4px;
   -webkit-transition: none;
   transition: none;
   padding-top: 1px;
@@ -15164,7 +15164,6 @@ div#ec-main-menu-desk {
 .ec-menu-content > ul > li .menu-toggle::before {
   width: 100%;
   content: "\f067";
-  font-family: "EcIcons";
   -webkit-transition: all 0.5s ease 0s;
   transition: all 0.5s ease 0s;
   display: -webkit-box;
@@ -15499,8 +15498,8 @@ div#ec_news_signup {
 
 .btn-secondary:hover {
   color: #ffffff;
-  background-color: #000;
-  border-color: #000;
+  background-color: #b6b6b6;
+
 }
 
 .ec-footer-social ul {
@@ -15578,11 +15577,12 @@ body {
 }
 
 .btn-secondary {
-  background-color: #000 !important;
+    background-color: var(--color-gray-200) !important;
+    color : var(--color-gray-800) !important;
+    border:none !important;
 }
 .btn-secondary:hover {
-  background-color: var(--color-main) !important;
-  border-color: var(--color-main) !important;
+  background-color: var(--color-gray-400) !important;
 }
 
 /*-----  Section Space  -----*/
@@ -20793,3 +20793,9 @@ section.ec-instagram-section {
   }
 }
 /*# sourceMappingURL=demo10.css.map */
+.text-primary{
+    color:var(--color-main) !important;
+}
+.btn-primary{
+    background-color: var(--color-3) !important;
+}
